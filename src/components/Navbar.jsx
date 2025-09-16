@@ -1,49 +1,47 @@
-import { useState } from "react";
-import { Menu, X } from "lucide-react"; // for icons
+import React, { useState, useEffect } from 'react';
+import './Navbar.css'; // Assuming you will have a CSS file for styling
 
-export default function Navbar() {
-  const [isOpen, setIsOpen] = useState(false);
+const Navbar = () => {
+  const [scrolled, setScrolled] = useState(false);
+  const [theme, setTheme] = useState('light');
 
-  const toggleMenu = () => setIsOpen(!isOpen);
+  // Handle scroll to change transparency
+  useEffect(() => {
+    const handleScroll = () => {
+      setScrolled(window.scrollY > 50);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  // Toggle day/night theme
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.documentElement.className = newTheme;
+  };
 
   return (
-    <nav className="bg-[#1F2937] text-white shadow-md fixed w-full top-0 z-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between h-16 items-center">
-          
-          {/* Logo / Brand */}
-          <div className="flex-shrink-0 flex items-center">
-            <span className="text-xl font-bold tracking-wide">Time&Trust</span>
-          </div>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex space-x-8">
-            <a href="#" className="hover:text-gray-300">Inicio</a>
-            <a href="#coleccion" className="hover:text-gray-300">Colección</a>
-            <a href="#reviews" className="hover:text-gray-300">Reseñas</a>
-            <a href="#contacto" className="hover:text-gray-300">Contacto</a>
-          </div>
-
-          {/* Mobile Menu Button */}
-          <div className="md:hidden flex items-center">
-            <button onClick={toggleMenu} className="focus:outline-none">
-              {isOpen ? <X size={28} /> : <Menu size={28} />}
+    <nav className={`navbar ${scrolled ? 'scrolled' : ''}`}>
+      <div className="navbar-container">
+        <div className="navbar-logo">Time&Trust</div>
+        <ul className="navbar-links">
+          <li><a href="#inicio">Inicio</a></li>
+          <li><a href="#catalogo">Catálogo</a></li>
+          <li><a href="#sobre-mi">Sobre mí</a></li>
+          <li><a href="#contacto">Contacto</a></li>
+          <li>
+            <button onClick={toggleTheme} className="theme-toggle-button">
+              {theme === 'light' ? '🌙' : '☀️'}
             </button>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
-
-      {/* Mobile Menu */}
-      {isOpen && (
-        <div className="md:hidden bg-[#111827]">
-          <div className="px-2 pt-2 pb-3 space-y-1">
-            <a href="#" className="block px-3 py-2 rounded-md hover:bg-gray-700">Inicio</a>
-            <a href="#coleccion" className="block px-3 py-2 rounded-md hover:bg-gray-700">Colección</a>
-            <a href="#reviews" className="block px-3 py-2 rounded-md hover:bg-gray-700">Reseñas</a>
-            <a href="#contacto" className="block px-3 py-2 rounded-md hover:bg-gray-700">Contacto</a>
-          </div>
-        </div>
-      )}
     </nav>
   );
-}
+};
+
+export default Navbar;

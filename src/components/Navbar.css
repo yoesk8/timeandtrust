@@ -1,0 +1,95 @@
+/* src/components/Navbar.css */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 1000;
+    transition: background-color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  }
+  
+  .navbar-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent white */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    color: #333; /* For better visibility on white background */
+  }
+  
+  /* Day/Night Theme */
+  body.light .navbar {
+    background-color: transparent;
+    color: #fff;
+  }
+  
+  body.light .navbar.scrolled {
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+  }
+  
+  body.dark {
+    background-color: #121212;
+    color: #fff;
+  }
+  
+  body.dark .navbar {
+    background-color: transparent;
+    color: #fff;
+  }
+  
+  body.dark .navbar.scrolled {
+    background-color: rgba(30, 30, 30, 0.9);
+    box-shadow: 0 2px 5px rgba(255, 255, 255, 0.1);
+    color: #fff;
+  }
+  
+  .navbar-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+  }
+  
+  .navbar-links {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  
+  .navbar-links a {
+    text-decoration: none;
+    color: inherit;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .navbar-links a:hover {
+    color: #007bff; /* Example hover color */
+  }
+  
+  .theme-toggle-button {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: inherit;
+    transition: transform 0.3s ease;
+  }
+  
+  .theme-toggle-button:hover {
+    transform: rotate(30deg);
+  }
+  
+  /* Example styles for the root element, to show themes */
+  #root {
+    min-height: 200vh; /* This makes the page scrollable */
+    transition: background-color 0.3s ease;
+  }
